@@ -1,12 +1,19 @@
 package com.practicejson.jsonsimple;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.testng.annotations.Test;
+
 public class DemoTestjson {
 	
-	
-	public static void main()
+	@Test
+	public static void testMain()
 	{
 		
 	
@@ -29,12 +36,17 @@ public class DemoTestjson {
 	    String encodedAuthorization = enc.encode( userpassword.getBytes() );
 	    conn.setRequestProperty("Authorization", "Basic "+encodedAuthorization);
 			conn.setAllowUserInteraction(true);*/
-	} catch (IOException e) {
+	
+	
+	java.io.BufferedReader br = new BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
+	JSONParser parser = new JSONParser();
+	JSONObject obj = (JSONObject) parser.parse(br);
+	JSONObject obj1  = (JSONObject) obj.get("RestResponse");
+	//JSONObject obj2  = (JSONObject)obj1.get("result");
+	 System.out.println(obj1.toString());
+	} catch (IOException | ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-	
-
 }
 }
