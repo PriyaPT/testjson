@@ -3,12 +3,16 @@ package com.practicejson.jsonsimple;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.testng.annotations.Test;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 public class DemoTestjson {
 	
@@ -42,8 +46,22 @@ public class DemoTestjson {
 	JSONParser parser = new JSONParser();
 	JSONObject obj = (JSONObject) parser.parse(br);
 	JSONObject obj1  = (JSONObject) obj.get("RestResponse");
-	//JSONObject obj2  = (JSONObject)obj1.get("result");
 	 System.out.println(obj1.toString());
+	 JSONArray array =  (JSONArray)obj1.get("result");
+	
+	Iterator<JSONObject> objaray = array.iterator();
+	while(objaray.hasNext())
+	{
+		JSONObject obj3 = objaray.next();
+		String Name = (String) obj3.get("name");
+		System.out.println( ":" +Name);
+		String alpha2_code = (String) obj3.get("alpha2_code");
+		System.out.println(" :" +alpha2_code );
+		String alpha3_code = (String)obj3.get("alpha3_code");
+		System.out.println(" :" +alpha3_code );
+	}
+	//JSONObject obj2  = (JSONObject)obj1.get("result");
+
 	} catch (IOException | ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
